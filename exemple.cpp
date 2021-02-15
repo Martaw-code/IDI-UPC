@@ -3,7 +3,7 @@
 
 
 int main(int argc, char *argv[]) {
-    //inicialitza el sistema de finestres i construeix un objecte amb els ar    guments argc i argv
+    //inicialitza el sistema de finestres i construeix un objecte amb els arguments argc i argv
     QApplication app(argc,argv);
     
     QPushButton hello("Hello Qt!",0);
