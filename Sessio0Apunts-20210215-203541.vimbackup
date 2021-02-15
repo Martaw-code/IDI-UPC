@@ -77,20 +77,8 @@ la finestra. SIGKILL.
 pd: SO returns
 
 
-Per tant, s'emet un signal quan es produeix un esdeveniment concret.
-Els widgets tenen molts signals predefinits, o podem afegir els nostres propis
-signals.
 
-Un slot és una funció que es cridarà en resposta a un signal en concret.
-
-Els widgets tindran varis slots predefinits, tot i que també podem afegir els
-nostres pròpis slots i així podem tractar els signals que ens interessen.
-
-A més a més, les classes que emeten signals els hi importa poc quin slot rep el
-signal. Però aquest mecanisme de signals i slots ens garanteix que si connectem
-un signals a un slot, l'slot serà cridat amb els paràmetres del signal en aquell
-instant
-
+Sorti
 
 
 
