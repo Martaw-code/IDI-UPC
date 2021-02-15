@@ -1,5 +1,5 @@
 #include <QApplication> //incloure sempre aquesta llibreria
-#include <QPushButton> //incloure sempre que volguem usar algun PushButton!
+#include <QPushButton> //incloure sempre que vulguem usar algun PushButton!
 
 
 int main(int argc, char *argv[]) {
