@@ -1,9 +1,9 @@
 #include <QApplication> //incloure sempre aquesta llibreria
-#include <QPushButton> //incloure sempre que volguem usar algun PushButton!
+#include <QPushButton> //incloure sempre que vulguem usar algun PushButton!
 
 
 int main(int argc, char *argv[]) {
-    //inicialitza el sistema de finestres i construeix un objecte amb els ar    guments argc i argv
+    //inicialitza el sistema de finestres i construeix un objecte amb els arguments argc i argv
     QApplication app(argc,argv);
     
     QPushButton hello("Hello Qt!",0);
