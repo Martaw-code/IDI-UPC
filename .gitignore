@@ -32,4 +32,4 @@
 
 .DS_Store
 *.vimbackup
-.qmake.stash
+*.qmake.stash
