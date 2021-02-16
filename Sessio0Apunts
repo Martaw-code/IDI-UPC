@@ -206,8 +206,11 @@ Ui::MyForm ui; //ha de coincidir amb el nom del formulari del Designer
 MyForm és un objecte del fitxer ui_Form.h que configura tots els widgets i les
 connexions entre els signals i els slots
 
-//No em queda gens clara aquesta part, no entenc això de l'herencia
-
+Puc entendre que necessitem l'herència per crear classes a partir d'una classe
+extistent, en aquest cas, la classe del widget "child", hereta, pren els
+atributs i comportaments de les funcions de la classe del widget "parent". Per
+tant la classe "child" és una extensió de la classe "parent". Per tant tenim
+subclasse/subwidgets, dins del widget, té sentit.
 
 Editor: myform.pro //generar-lo amb un editor de text
         main.cpp
