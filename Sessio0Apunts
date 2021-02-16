@@ -241,3 +241,51 @@ compilant-ho tot:
                 make
 
 
+_____________________________________________________________________________________
+Consultar el manual assistant per saber com es comoporta cada widget
+
+
+Connectar: aplicació <-> widgets i widgets <-> widgets
+
+app.connect(quitButton, SIGNAL(clicked()), w, SLOT(close()));
+  app.connect(txtLine, SIGNAL(textChanged(const QString&)), label_mostra, SLOT(setText(const QString &)));
+
+Aquestes són les línies que indiquen quins signals volem connectar amb quins
+slots (i poden haver tantes com calgui)
+
+
+connectem el signal clicked() del botó amb el slot close() del widget principal
+w
+
+Per tant quan cliquem el botó "Quit" el widget emet un signal clicked() i aquest
+signal és alimentat als slots subscrits, en aquest cas el mètode close() del
+widget w. Per tant, w es tancarà i com que l'havíem declarat com a widget
+principal de l'aplicació, plegarà.
+
+
+L'altre: Cada vegada que canviem el text al widget txtLine es propagui al slot
+setText(const QString&) del widget label_mostra. Per tant aquesta etiqueta,
+buida anirà reflectint en tot moment el text que hi hagi a la línia de text
+txtLine.
+
+
+
+slot i signal connectats en aquest cas són compatibles perquè, textChanged i
+setText tenen els dos el mateix paràmetre.
+
+
+#modificacions al .pro, el make farà:
+qmake -o Makefile lab0.pro
+
+
+
+
+
+
+
+
+
+
+
+
+
