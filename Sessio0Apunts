@@ -1,4 +1,4 @@
-
+#keep in mind :noh
 
                                                             15/02/2021
                                                             Marta GiM
@@ -6,8 +6,8 @@ Apunts Qt
 
 Qt és un framework(això significa que és un software que ja ha set 
 desenvolupat i en essència ens ajudarà a crear la nostra aplicació, 
-o a facilitar-nos la tasca que volguem fer. És codi reutilitzable i 
-que ens aportarà certes funcionalitats que podrem usar en els nostres 
+o a facilitar-nos la tasca que vulguem fer. És codi reutilitzable i 
+ens aportarà certes funcionalitats que podrem usar en els nostres 
 programes. Per tant el fet d'usar un framework, evita que ho haguem de 
 fer tot des de 0, ja que a ningú li agradaria tornar a reinventar la 
 roda!! A més a més, segur que aquest codi ja ha set revistat i 
@@ -36,8 +36,9 @@ Hi ha una certa relació jeràrquica, ja que si el·liminem el widget finestra, 
 
 Fitxer .pro conté la descripció del projecte que estem programant. 
 
-.pro -> fitxers de projecte, fet amb un editor de text, llistem els arxius que tenen 
-el nostre projecte, i.e, .cpp, .h, .ui
+.pro -> fitxers de projecte, les llibreries que cal enllaçar. Fet amb un editor
+de text, llistem els arxius que tenen el nostre projecte, i.e, .cpp, .h, .ui
+
 
 qmake -> genera Makefile a partir del .pro
 make -> compila i linkeja el programa 
@@ -67,12 +68,21 @@ QGridLayout: distribueix els widgets en un 2D grid
 
 SIGNALS & SLOTS: S'utilitzen per la comunicació entre oobjectes.
 
+Per tal de connectar la GUI que dissenyem amb la nostra aplicació, caldrà
+connectar els elements gràfics Qt al nostre codi C++.
+
+Les connexions poden ser:
+
+-> Alt nivell: associades als components
+-> Baix nivell: esedeveniments bàsics del computador, i.e ratolí, teclat
+
+
 Normalment quan un widget canvia d'estat, poster volem que un altre widget
 canvïi d'estat també per tant d'alguna forma l'hem de notificar. Li hem d'enviar
 alguna senyal perquè al mateix temps es modifiqui, si és aquest el cas. Per
 tant, volem que objectes de qualsevol tipus es comuniquin entre ells. Ex: Si
 cliquem el button Sortir, probablement volem que es cridi la funció close() de
-la finestra. SIGKILL.
+la finestra. SIGKILL. Bàsicament quan fem clic sobre un widget.
 
 pd: SO returns
 
@@ -81,7 +91,7 @@ Per tant, s'emet un signal quan es produeix un esdeveniment concret.
 Els widgets tenen molts signals predefinits, o podem afegir els nostres propis
 signals.
 
-Un slot és una funció que es cridarà en resposta a un signal en concret.
+Un slot és una funció d'una classe que es cridarà en resposta a un signal en concret.
 
 Els widgets tindran varis slots predefinits, tot i que també podem afegir els
 nostres pròpis slots i així podem tractar els signals que ens interessen.
@@ -91,9 +101,140 @@ signal. Però aquest mecanisme de signals i slots ens garanteix que si connectem
 un signals a un slot, l'slot serà cridat amb els paràmetres del signal en aquell
 instant
 
+Qualsevol classe que hereti de QObject(o de les seves subclasses), pot contenir
+signals i slots. Els signals són emesos per objectes quan canvïien d'estat d'una
+manera que pot ser interessant per altres objectes. Per tant, qualsevol classe de Qt conté signals i slots.
+
+Els slots es poden usar per rebre senyals, però tammbé cal recordar que són
+funcions normals. De la mateixa manera que un objecte no sap si un slot rep un
+signal, un slot no sap si té algun signal connectat. Per tant es garanteix que
+es puguin crear components veritablement independents amb Qt.
+
+Es pot connectar tant signals com vulguem en un sol slot, i un signal pot ser
+connectat a tants slots com necessitem. També podem connectar un signal a un
+altre signal. Això emetrà el segon signal immendiatament després del primer
+signal.
+
+
+Si tenim diversos slots connectats a un signal, els slots s'executaran un
+darrere l'altre, però no sabrem l'ordre.
+RECAP:
+
+Signals es llancen quan es produeix un esedeveniment en l'aplicació, i.e clicar
+botó
+
+Slots s'executen quan es produeix un signal
+
+La informació que circula entre signals i slots viatja a través dels paràmetres
+Els slots tenen paràmetres que venen carregats de dades, les que envia el
+signal.
+
+Podem tenir més d'un slot connectat a un mateix signal, de manera que quan
+s'emeti un signal, s'executaran tots els slots, sense saber-ne l'ordre
+d'execució.
+
+No hem d'oblidar que els slots segueixen les regles normals de C++
+
+Totes les classes que contenen senyals o slots han d’esmentar Q_OBJECT a la part
+superior de la declaració. També han de derivar (directament o indirectament)
+de QObject.
+
+Només podem connectar slots i signals que tinguin el mateix # de paràmetres o menys
+
+Podem usar l'eina per dissenyar aplicacions amb Qt:
+
+designer o designer-qt5 a lab(per problemes que sinó cridaria a altres versions)
+
+assistant& per més info
 
 
 
+FITXERS PER COMPILAR INTERFÍCIES DEL DESIGNER
 
+Qt Designer -> Form.ui -> uic -> ui_Form.h
+
+User Interface Compiler (uic) llegeix un fitxer XML format user interface definition
+(.ui) que genera QtDesigner i crea el corresponent C++ header.
+
+USEFUL:
+
+        uic [options] <uifile>
+
+        options:
+
+        --output <file>
+
+Si volem generar: ui_Form.h hem d'afegir a fitxer .pro: 
+
+FORMS += Form.ui
+
+ui_Form generat amb UIC a partir de fer qmake
+
+
+El widget principal, és a dir el parent widget rebrà el nom que prengui QObject
+en l'apartat objectName. Però cada objecte rebrà el seu objectName(), però en
+aquest cas el el widget, la finestra principal del qual els altres en dependran.
+
+
+Per això necessitem crear:
+
+QObject
+objectName MyForm
+
+Editor : MyForm.h  (nom del widget principal)
+         MyForm.cpp
+
+
+
+Quan creem una MyClass nova li assignem un punter a un QWidget que vulguem ser
+el pare de la nova. El valor = 0 significa que si no donem cap argument, no
+tindrà cap pare, o més aviat el punter pare es definirà a NULL
+Per tant el que significa : 
+                            MyForm(QWidget *parent = 0);
+
+és que creem un punter al no-res, en un cas normal voldríem que apuntés a una
+adreça determinada de memòria, com l'adreça d'un widget principal.
+
+Però quan no volem assenyalar cap widget pare, no podem apuntar a res.
+
+Inheritance & more stuff that I don't even know
+
+https://doc.qt.io/qt-5/designer-using-a-ui-file.html
+
+Ui::MyForm ui; //ha de coincidir amb el nom del formulari del Designer
+
+MyForm és un objecte del fitxer ui_Form.h que configura tots els widgets i les
+connexions entre els signals i els slots
+
+//No em queda gens clara aquesta part, no entenc això de l'herencia
+
+
+Editor: myform.pro //generar-lo amb un editor de text
+        main.cpp
+
+
+//myform.pro
+
+TEMPLATE = app
+QT += widgets
+FORMS += Form.ui
+HEADERS += MyForm.h
+SOURCES += MyForm.cpp main.cpp
+
+
+//main.cpp generar-lo amb un editor de text
+
+#include <QApplication>
+#include "MyForm.h"
+int main(int argc, char **argv) {
+    QApplication app( argc, argv );
+    MyForm form;
+    form.show();
+    return app.exec();
+}
+
+compilant-ho tot:
+                qmake
+                make
 
 
