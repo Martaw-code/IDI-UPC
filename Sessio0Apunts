@@ -43,6 +43,10 @@ de text, llistem els arxius que tenen el nostre projecte, i.e, .cpp, .h, .ui
 qmake -> genera Makefile a partir del .pro
 make -> compila i linkeja el programa 
 
+qmake -o Makefile lab0.pro
+
+
+
 QT += widgets  #sino no surten els widgets 
 
 #Per executar el PushButton creat.
@@ -278,10 +282,36 @@ setText tenen els dos el mateix paràmetre.
 qmake -o Makefile lab0.pro
 
 
+Els perfils de configuracio més útils són:
+
+https://doc.qt.io/archives/qt-4.8/qmake-advanced-usage.html
+
+-> release: L'aplicació es genera en mode d'execució normal, sense informació de
+debug
+
+-> debug: L'aplicacio es genera amb informacio de debug
+
+-> warn_on: El compilador ha de mostrar tants avisos com sigui possible
+
+-> warn_off: El compilador ha de mostrar el mínim d'avisos possible
+
+-> thread: L'aplicacio utilitza multiples threads
 
 
+També podem afegir o treure algun perfil de les variables, amb -= o +=
+respectivament. Amb l'operador(=) assignem
+
+També farem servir Qt per a afegir interfície a aplicacions OpenGL, i per a
+indicar a Qt que ha de compilar amb les llibreries d'OpenGL, caldrà afegir:
+
+QT += opengl
 
 
+------------------
+
+Qt Designer: Tenim la toolbox on tenim els possibles widgets que volem
+I després tenim varies finestres que són: Resources/Action/Property/Object i
+Signal/Slot editor
 
 
 
